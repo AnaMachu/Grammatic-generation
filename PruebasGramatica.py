@@ -29,25 +29,25 @@ grammar = CFG.fromstring("""
 parser = nltk.ChartParser(grammar)
 
 test_cases = [
-    # ✔ Válidas — con objeto explícito
+    # Válidas — con objeto explícito
     ("Maria gosta musica",           "ACEPTADA"),
     ("você mora no Brasil",          "ACEPTADA"),
     ("eles falam português",         "ACEPTADA"),
     ("o menino lê livro",            "ACEPTADA"),
     ("Maria lê a musica",            "ACEPTADA"),
 
-    # ✔ Válidas — objeto vacío (ε)
+    # Válidas — objeto vacío (ε)
     ("Maria gosta",                  "ACEPTADA"),
     ("eles estudam",                 "ACEPTADA"),
     ("você mora",                    "ACEPTADA"),
 
-    # ✔ Válidas — con negação
+    # Válidas — con negação
     ("Maria não gosta de livro",     "ACEPTADA"),
     ("eles não falam português",     "ACEPTADA"),
     ("o menino não lê livro",        "ACEPTADA"),
     ("Maria não gosta",              "ACEPTADA"),
 
-    # ✘ Inválidas
+    # Inválidas
     ("gosta Maria musica",           "RECHAZADA"),  # orden incorrecto
     ("Maria musica",                 "RECHAZADA"),  # falta verbo
     ("Maria não musica",             "RECHAZADA"),  # falta verbo tras não
@@ -72,7 +72,7 @@ for sentence, expected in test_cases:
         except:
             result = "RECHAZADA"
 
-    status = "✔ OK" if result == expected else "✘ FALLO"
+    status = "OK" if result == expected else "✘ FALLO"
     if result == expected:
         passed += 1
     else:

@@ -51,10 +51,10 @@ for sentence in sentences:
     if not trees:
         print("  Não foi possível analisar.")
     elif len(trees) == 1:
-        print(f"  ✔ SEM AMBIGUIDADE — 1 árvore encontrada\n")
+        print(f" SEM AMBIGUIDADE — 1 árvore encontrada\n")
         trees[0].pretty_print()
     else:
-        print(f"  ⚠ AMBÍGUA — {len(trees)} árvores encontradas!\n")
+        print(f"  AMBÍGUA — {len(trees)} árvores encontradas!\n")
         for i, tree in enumerate(trees, 1):
             print(f"  --- Árvore {i} ---")
             tree.pretty_print()

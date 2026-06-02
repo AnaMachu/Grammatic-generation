@@ -1,0 +1,29 @@
+    oração -> oração conjunção oração
+    oração -> assunto verbo objeto
+    oração -> assunto verbo
+    oração -> assunto 'não' verbo objeto
+
+
+    assunto -> assunto adjetivo
+    assunto -> pronome
+    assunto -> nome
+    assunto -> artigo nome
+
+
+    pronome -> 'eles' | 'você'
+    nome -> 'Maria' | 'menino'
+    artigo -> 'a' | 'o'
+    adjetivo -> 'bom' | 'inteligente'
+    conjunção -> 'e' | 'mas'
+
+
+    verbo -> 'gosta' | 'falam' | 'mora' | 'estudam' | 'lê'
+
+
+    objeto -> preposição substantivo
+    objeto -> artigo substantivo
+    objeto -> substantivo
+
+
+    preposição -> 'de' | 'no'
+    substantivo -> 'musica' | 'ingles' | 'livro' | 'Brasil'|'português'

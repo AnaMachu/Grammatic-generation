@@ -151,7 +151,7 @@ assunto  → nome assunto'
 assunto  → artigo nome assunto'
 assunto' → adjetivo assunto' | ε
 y ahora el árbol se ve así 
-<img width="734" height="398" alt="image" src="https://github.com/user-attachments/assets/856d1527-ff78-496a-838a-2d4c4108a357" />
+<img width="1071" height="476" alt="image" src="https://github.com/user-attachments/assets/62f88525-4dcf-45ad-9f8d-d595a927425d" />
 
 ## Modelo 
 El modelo final de la gramática una vez fue removida la ambigüedad, recusrión izquierda y  fue simplificada es esta:

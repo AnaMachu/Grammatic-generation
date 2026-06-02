@@ -79,12 +79,13 @@ Aplicado a nuestra gramática:
 oração → oração conjunção oração
 
 Se agregó un "filtro", ahora no se puede formar una oracao al final sin pasar por oracao simple
-oração        -> oração conjunção oração_simples  
-oração        -> oração_simples                    
 
-oração_simples -> assunto verbo objeto
-oração_simples -> assunto verbo
-oração_simples -> assunto 'não' verbo objeto
+oração        -> oração conjunção oração_simples  <br>
+oração        -> oração_simples<br>            
+
+oração_simples -> assunto verbo objeto<br>
+oração_simples -> assunto verbo<br>
+oração_simples -> assunto 'não' verbo objeto<br>
 
 Y una vez usando ese cambio de gramática se corre en  [PortuguesAmbiguo.py](PortuguesAmbiguo.py)  y se observa como solo hay un árbol para aquella oración habiendo quitado exitosamente la ambigüedad.
 <img width="1382" height="494" alt="image" src="https://github.com/user-attachments/assets/2a58238e-6b80-44cb-a405-5f2e5b834ad8" />
@@ -112,44 +113,44 @@ or lo que assunto y oração podrían repetirse las veces que sean.
 
 Lo que procede a hacerse para retirar es aplicar el algortimo explicado al incio de esta sección y en mi gramatica se vería así 
 
-oração -> oração conjunção oração_simples   # A → A α
-oração -> oração_simples                    # A → β
+oração -> oração conjunção oração_simples   # A → A α <br>
+oração -> oração_simples                    # A → β <br>
 
 Por lo que 
 
-A = oração
-α = conjunção oração_simples
-β = oração_simples
+A = oração <br>
+α = conjunção oração_simples <br>
+β = oração_simples <br>
 
 Entonces aplicando el algoritmo de  A → Aα | β se reescribe como A → βA' y A' → αA' | ε
 Se obtiene la siguiente forma :
-oração  → oração_simples oração'
-oração' → conjunção oração_simples oração' | ε
+oração  → oração_simples oração' <br>
+oração' → conjunção oração_simples oração' | ε <br>
  y el árbol ahora se ve así 
  <img width="1566" height="508" alt="image" src="https://github.com/user-attachments/assets/93bfed78-6e1f-48b1-8ca6-aacd6312beb6" />
 
  Sin embargo aún hay otro segmento con recursión izquierda.
 
-assunto -> assunto adjetivo    # A → A α
-assunto -> pronome             # A → β1
-assunto -> nome                # A → β2
-assunto -> artigo nome         # A → β3
+assunto -> assunto adjetivo    # A → A α <br>
+assunto -> pronome             # A → β1 <br>
+assunto -> nome                # A → β2 <br>
+assunto -> artigo nome         # A → β3 <br>
 
-A  = assunto
-α  = adjetivo
-β1 = pronome
-β2 = nome
-β3 = artigo nome
+A  = assunto <br>
+α  = adjetivo <br>
+β1 = pronome <br>
+β2 = nome <br>
+β3 = artigo nome <br>
 
 teniendo en mente este algortimo
-A  → β A'
-A' → α A' | ε
+A  → β A' <br>
+A' → α A' | ε <br>
 
 Se sutstituye a 
-assunto  → pronome assunto'
-assunto  → nome assunto'
-assunto  → artigo nome assunto'
-assunto' → adjetivo assunto' | ε
+assunto  → pronome assunto' <br>
+assunto  → nome assunto' <br>
+assunto  → artigo nome assunto' <br>
+assunto' → adjetivo assunto' | ε <br>
 y ahora el árbol se ve así 
 <img width="1071" height="476" alt="image" src="https://github.com/user-attachments/assets/62f88525-4dcf-45ad-9f8d-d595a927425d" />
 

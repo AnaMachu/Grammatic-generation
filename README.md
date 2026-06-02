@@ -98,15 +98,17 @@ La recursión izquierda luce de la siguiente manera cuando se representa en un �
 
 Al correr mi gramática en el archivo [PortuguesAmbiguo.py](PortuguesAmbiguo.py) encontramos árboles con este aspecto:
 
-<img width="1383" height="509" alt="image" src="https://github.com/user-attachments/assets/916ad7e1-c9ff-4dda-a8e2-433315d68cd9" />
-<img width="838" height="473" alt="image" src="https://github.com/user-attachments/assets/05069031-2797-4061-a263-9a22d7542b5e" />
 
 En mi gramática se identificó en estas dos lineas :
 * oração → oração conjunção oração_simples  (la que le acabamos de quitar la ambigüedad)
-oração se llama a sí misma en la posición más izquierda 
+  <img width="1383" height="509" alt="image" src="https://github.com/user-attachments/assets/916ad7e1-c9ff-4dda-a8e2-433315d68cd9" />
+oração se llama a sí misma en la posición más izquierda
+
 * assunto → assunto adjetivo
+<img width="838" height="473" alt="image" src="https://github.com/user-attachments/assets/05069031-2797-4061-a263-9a22d7542b5e" />
 assunto se llama a sí misma en la posición más izquierda
-por lo que assunto y oração podrían repetirse las veces que sean.
+p
+or lo que assunto y oração podrían repetirse las veces que sean.
 
 Lo que procede a hacerse para retirar es aplicar el algortimo explicado al incio de esta sección y en mi gramatica se vería así 
 
@@ -128,25 +130,53 @@ oração' → conjunção oração_simples oração' | ε
 
  Sin embargo aún hay otro segmento con recursión izquierda.
 
- 
+assunto -> assunto adjetivo    # A → A α
+assunto -> pronome             # A → β1
+assunto -> nome                # A → β2
+assunto -> artigo nome         # A → β3
+
+A  = assunto
+α  = adjetivo
+β1 = pronome
+β2 = nome
+β3 = artigo nome
+
+teniendo en mente este algortimo
+A  → β A'
+A' → α A' | ε
+
+Se sutstituye a 
+assunto  → pronome assunto'
+assunto  → nome assunto'
+assunto  → artigo nome assunto'
+assunto' → adjetivo assunto' | ε
+y ahora el árbol se ve así 
+<img width="734" height="398" alt="image" src="https://github.com/user-attachments/assets/856d1527-ff78-496a-838a-2d4c4108a357" />
 
 ## Modelo 
 El modelo final de la gramática una vez fue removida la ambigüedad, recusrión izquierda y  fue simplificada es esta:
-<img width="291" height="263" alt="image" src="https://github.com/user-attachments/assets/da47db1a-033a-4edb-a1f9-0062d49d319b" />
-
+<img width="299" height="462" alt="image" src="https://github.com/user-attachments/assets/15f0d76e-35e1-496d-b221-dd5b3d658db9" />
+y también se puede encontrar en el siguiente archivo de texto [GramaticaFinal.txt](GramaticaFinal.txt) 
 
 ## Implementación 
 Se encuentra en el archivo. Este código funciona de la siguiente manera:
-
 [Portugues.py](Portugues.py)
 
 ## Pruebas
-Las purebas automatizadas están en [PruebasGramatica.py](PruebasGramatica.py) y solo se necesita correr el archivo.
-Es importante tener la librería ntlk instalada.
+Las purebas automatizadas están en [PruebasPortugues.py](PruebasPortugues.py) y solo se necesita correr el archivo.
+Es importante tener la librería ntlk instalada para correrlas.
 
-Aquí se observan ejemplos de oraciones válidad con resultado exitoso 
+Se ingresan oraciones válidas e inválidas y el código determina con ok o con fallido dependiendo de si logró calsificar entre aceptadas y rechazadas.
 
-Aquí hay oraciones inválidad con resultados negativo
+Aquí se observan algunos ejemplos de oraciones válidas
+<img width="703" height="474" alt="image" src="https://github.com/user-attachments/assets/a78e7468-8e44-4cef-a1b8-4e5d0767825f" />
+
+Aquí hay oraciones inválidad
+<img width="723" height="391" alt="image" src="https://github.com/user-attachments/assets/73a3cb46-989a-4c45-abba-a0308a888c19" />
+
+y este fue el resultado donde se observa que si tiene un "OK" la prueba fue ejecutada correctamente, tuvo éxito en detemrinar si era válida o inválida
+<img width="766" height="734" alt="image" src="https://github.com/user-attachments/assets/4d6c5af2-3cca-4208-bbc2-af61b8d30751" />
+
 
 ## Parser LL(1) Princeton 
 

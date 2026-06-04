@@ -52,7 +52,7 @@ Primero se debe identificar que parte de la gramática es aquella que causa este
 al querer generar la oración 'Maria lê livro e Maria mora Brasil e você gosta musica' hay más de un árbol sintáctico capaz de generarlo 
 <img width="1116" height="791" alt="image" src="https://github.com/user-attachments/assets/017d939d-3525-43f6-918b-88adc67d35ba" />
 
-Y se ha identificado que el probelma radica aquí:
+Y se ha identificado que el probelma radica aquí:<br>
 <img width="437" height="394" alt="image" src="https://github.com/user-attachments/assets/9dec83c1-4bf1-4ec8-b66e-187fd40cf422" />
 
 <n> oração → oração conjunção oração <n>
@@ -78,7 +78,7 @@ T → T * F | F
 F → id	
 
 Aplicado a nuestra gramática:
-oração → oração conjunção oração| assunto verbo objeto|assunto verbo|asunto 'não' verbos objeto 
+* oração → oração conjunção oração| assunto verbo objeto|assunto verbo|asunto 'não' verbos objeto 
 
 Se agregó un "filtro", ahora no se puede formar una oracao al final sin pasar por oracao simple
 
@@ -87,7 +87,7 @@ oração        -> oração_simples<br>
 
 A pesar de haber corregido lo anterior, aún se identifica otro problema  sigue causando ambigüedad porque hay muchas alternativas que empiezan con assunto y eso puede confunidr al parser.
 
-oração_simple -> assunto verbo objeto| assunto verbo | assunto 'não' verbo objeto
+* oração_simple -> assunto verbo objeto| assunto verbo | assunto 'não' verbo objeto
 
 Así que se separan así <br>
 oração_simple -> assunto oração_int
@@ -114,11 +114,8 @@ Al correr la gramática sin ambigüedad en el programa encontramos árboles con 
 
 
 En mi gramática se identificó en estas dos lineas :
-* oração → oração conjunção oração_simple  (la que le acabamos de quitar la ambigüedad)
-  <img width="709" height="128" alt="image" src="https://github.com/user-attachments/assets/6843aeda-f8f8-4021-a53c-b95d7f355cb7" />
-
-  <img width="1383" height="509" alt="image" src="https://github.com/user-attachments/assets/916ad7e1-c9ff-4dda-a8e2-433315d68cd9" />
-oração se llama a sí misma en la posición más izquierda
+* oração → oração conjunção oração_simple  (la que le acabamos de quitar la ambigüedad) <br>
+oração se llama a sí misma en la posición más izquierda causando directamente una recursión izquierda.
 
 * assunto → assunto adjetivo | pronome | nome |artigo nome
 
@@ -142,10 +139,8 @@ Entonces aplicando el algoritmo de  A → Aα | β se reescribe como A → βA' 
 Se obtiene la siguiente forma : <br>
 oração  → oração_simples oração' <br>
 oração' → conjunção oração_simples oração' | ε <br>
-y el árbol ahora se ve así <br>
- <img width="1566" height="508" alt="image" src="https://github.com/user-attachments/assets/93bfed78-6e1f-48b1-8ca6-aacd6312beb6" />
 
- Sin embargo aún hay otro segmento con recursión izquierda.
+Sin embargo aún hay otro segmento con recursión izquierda.
 
 assunto -> assunto adjetivo    # A → A α <br>
 assunto -> pronome             # A → β1 <br>
@@ -166,8 +161,8 @@ Se sutstituye a
 assunto  → pronome assunto'| nome assunto' | artigo nome assunto' <br>
 assunto' → adjetivo assunto'| ε <br>
 y ahora el árbol se ve así <br>
-<img width="1071" height="476" alt="image" src="https://github.com/user-attachments/assets/62f88525-4dcf-45ad-9f8d-d595a927425d" />
- 
+<img width="954" height="483" alt="image" src="https://github.com/user-attachments/assets/37e6e8de-4008-42ee-a325-95111b68be60" />
+
 ## Modelo 
 El modelo final de la gramática una vez fue removida la ambigüedad, recursión izquierda y  fue simplificada es esta:
 <img width="511" height="544" alt="image" src="https://github.com/user-attachments/assets/69089640-e142-4aef-8231-d1536a1dadaf" />

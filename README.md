@@ -162,7 +162,7 @@ y ahora el árbol se ve así
 
 ## Modelo 
 El modelo final de la gramática una vez fue removida la ambigüedad, recusrión izquierda y  fue simplificada es esta:
-<img width="299" height="462" alt="image" src="https://github.com/user-attachments/assets/15f0d76e-35e1-496d-b221-dd5b3d658db9" />
+<img width="324" height="425" alt="image" src="https://github.com/user-attachments/assets/037e964a-0d0a-49fb-91f3-271e7d15f429" />
 y también se puede encontrar en el siguiente archivo de texto [GramaticaFinal.txt](GramaticaFinal.txt) 
 
 ## Implementación 

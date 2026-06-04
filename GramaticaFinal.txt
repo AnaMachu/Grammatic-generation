@@ -1,29 +1,27 @@
-oração   -> oração_simples oração'
-oração'  -> conjunção oração_simples oração'
-oração'  ->
+   oração  → oração_simples oração' 
+   oração' → conjunção oração_simples oração' | ε 
 
-oração_simples -> assunto verbo objeto
-oração_simples -> assunto verbo
-oração_simples -> assunto 'não' verbo objeto
+   oração_simple ->assunto oração _int
+   oração_int-> verbo oração_int2 |  'não'    verbo objeto
+   oração_int2-> objeto
 
-assunto  -> pronome assunto'
-assunto  -> nome assunto'
-assunto  -> artigo nome assunto'
+   assunto  → pronome assunto’ | nome assunto’ | artigo nome assunto’ <br>
+   assunto' → adjetivo assunto'| ε
 
-assunto' -> adjetivo assunto'
-assunto' ->
+    pronome -> 'eles' | 'você'
+    nome -> 'Maria' | 'menino'
+    artigo -> 'a' | 'o'
+    adjetivo -> 'bom' | 'inteligente'
+    conjunção -> 'e' | 'mas'
 
-pronome -> 'eles' | 'você'
-nome -> 'Maria' | 'menino'
-artigo -> 'a' | 'o'
-adjetivo -> 'bom' | 'inteligente'
-conjunção -> 'e' | 'mas'
 
-verbo -> 'gosta' | 'falam' | 'mora' | 'estudam' | 'lê'
+    verbo -> 'gosta' | 'falam' | 'mora' | 'estudam' | 'lê'
 
-objeto -> preposição substantivo
-objeto -> artigo substantivo
-objeto -> substantivo
 
-preposição -> 'de' | 'no'
-substantivo -> 'musica' | 'ingles' | 'livro' | 'Brasil' | 'português'
+    objeto -> preposição substantivo | artigo substantivo |substantivo
+
+
+    preposição -> 'de' | 'no'
+    substantivo -> 'musica' | 'ingles' | 'livro' | 'Brasil'|'português'
+
+

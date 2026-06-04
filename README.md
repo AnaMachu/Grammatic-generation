@@ -43,7 +43,7 @@ Y basado en las reglas del portugues esta ha sido mi producción de modelo
 
 <img width="834" height="439" alt="image" src="https://github.com/user-attachments/assets/47c7777f-2c7f-4660-b4bc-b44a17c400c0" />
 
-Sin embargo, la gramática presentada aquí tiene dos problemas, es ambigua y tiene recursividad izquierda. Estos problemas serán corregidos a continuación.
+Sin embargo, la gramática presentada aquí tiene dos problemas, es ambigua y tiene recursividad izquierda. Estos problemas serán explicados y corregidos a continuación.
 
 ### Ambigüedad
 Según Aho, Lam, Sethi y Ullman (2007), una gramática es ambigua cuando existe al menos una cadena del lenguaje que puede derivarse mediante dos o más árboles sintácticos diferentes. La ambigüedad representa un problema en el diseño de compiladores porque una misma entrada puede interpretarse de distintas maneras, generando incertidumbre sobre su significado. Para eliminarla, es común reescribir la gramática incorporando reglas que establezcan explícitamente la precedencia y asociatividad de los operadores o separando las construcciones en diferentes niveles sintácticos. De esta forma, cada cadena válida posee una única derivación y un único árbol sintáctico, permitiendo un análisis sintáctico determinista y sin interpretaciones múltiples.
@@ -110,7 +110,7 @@ La recursión izquierda luce de la siguiente manera cuando se representa en un �
 <img width="649" height="424" alt="image" src="https://github.com/user-attachments/assets/3112d5ce-c183-4604-9193-e3f169cc952a" />
 (Imagen extraída del material de clase)
 
-Al correr mi gramática en el archivo [PortuguesAmbiguo.py](PortuguesAmbiguo.py) encontramos árboles con este aspecto:
+Al correr la gramática sin ambigüedad en el programa encontramos árboles con este aspecto:
 
 
 En mi gramática se identificó en estas dos lineas :
@@ -140,7 +140,7 @@ Entonces aplicando el algoritmo de  A → Aα | β se reescribe como A → βA' 
 Se obtiene la siguiente forma : <br>
 oração  → oração_simples oração' <br>
 oração' → conjunção oração_simples oração' | ε <br>
-y el árbol ahora se ve así 
+y el árbol ahora se ve así <br>
  <img width="1566" height="508" alt="image" src="https://github.com/user-attachments/assets/93bfed78-6e1f-48b1-8ca6-aacd6312beb6" />
 
  Sin embargo aún hay otro segmento con recursión izquierda.
@@ -163,16 +163,17 @@ A' → α A' | ε <br>
 Se sutstituye a 
 assunto  → pronome assunto'| nome assunto' | artigo nome assunto' <br>
 assunto' → adjetivo assunto'| ε <br>
-y ahora el árbol se ve así 
+y ahora el árbol se ve así <br>
 <img width="1071" height="476" alt="image" src="https://github.com/user-attachments/assets/62f88525-4dcf-45ad-9f8d-d595a927425d" />
  
 ## Modelo 
-El modelo final de la gramática una vez fue removida la ambigüedad, recusrión izquierda y  fue simplificada es esta:
+El modelo final de la gramática una vez fue removida la ambigüedad, recursión izquierda y  fue simplificada es esta:
 <img width="511" height="544" alt="image" src="https://github.com/user-attachments/assets/69089640-e142-4aef-8231-d1536a1dadaf" />
 y también se puede encontrar en el siguiente archivo de texto [GramaticaFinal.txt](GramaticaFinal.txt) 
 
 ## Implementación 
 Se encuentra en el archivo. Este código funciona de la siguiente manera:
+usa la librería NLTK la cual es (descripción de la libería)
 [Portugues.py](Portugues.py)
 
 ## Pruebas
@@ -184,14 +185,16 @@ Se ingresan oraciones válidas e inválidas y el código determina con ok o con 
 Aquí se observan algunos ejemplos de oraciones válidas
 <img width="703" height="474" alt="image" src="https://github.com/user-attachments/assets/a78e7468-8e44-4cef-a1b8-4e5d0767825f" />
 
-Aquí hay oraciones inválidad
+Aquí hay oraciones inválidas
 <img width="723" height="391" alt="image" src="https://github.com/user-attachments/assets/73a3cb46-989a-4c45-abba-a0308a888c19" />
 
 y este fue el resultado donde se observa que si tiene un "OK" la prueba fue ejecutada correctamente, tuvo éxito en detemrinar si era válida o inválida
 <img width="766" height="734" alt="image" src="https://github.com/user-attachments/assets/4d6c5af2-3cca-4208-bbc2-af61b8d30751" />
 
+## Parser y tipos
 
 ## Parser LL(1) Princeton 
+
 
 ### Tabla First Follow
 
@@ -205,9 +208,15 @@ La tabla LL(1) es una estructura que asocia cada par (no-terminal, terminal) con
 Si la celda correspondiente a ese par tiene una producción, el parser la aplica reemplazando el no-terminal por el lado derecho de la regla. Si la celda está vacía, la cadena se rechaza porque no existe ninguna derivación válida para esa combinación. La gramática es LL(1) precisamente cuando ninguna celda contiene más de una producción, lo que garantiza que el parser nunca tiene que elegir entre dos caminos posibles.
 
 ### Ejemplo de árboles 
+Le pasamos al parser tokens válidos y contruye su árbol:
+
+"
 <img width="827" height="433" alt="image" src="https://github.com/user-attachments/assets/4ed31f74-eaef-4c5d-9a61-7dee32a5dab3" />
-<img width="806" height="425" alt="image" src="https://github.com/user-attachments/assets/24b9c0a7-6c3d-47eb-bc73-4df05ab607e7" />
+
+"
 <img width="809" height="439" alt="image" src="https://github.com/user-attachments/assets/b3883213-7277-46ec-9323-b712ad3f26df" />
+
+"o menino bom falam ingles mas eles falam portugues"
 <img width="808" height="436" alt="image" src="https://github.com/user-attachments/assets/47698ec1-d35d-412b-b50c-9ced681728fd" />
 
 

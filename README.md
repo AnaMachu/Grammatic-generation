@@ -115,13 +115,15 @@ Al correr la gramática sin ambigüedad en el programa encontramos árboles con 
 
 En mi gramática se identificó en estas dos lineas :
 * oração → oração conjunção oração_simple  (la que le acabamos de quitar la ambigüedad)
-  
+  <img width="709" height="128" alt="image" src="https://github.com/user-attachments/assets/6843aeda-f8f8-4021-a53c-b95d7f355cb7" />
+
   <img width="1383" height="509" alt="image" src="https://github.com/user-attachments/assets/916ad7e1-c9ff-4dda-a8e2-433315d68cd9" />
 oração se llama a sí misma en la posición más izquierda
 
 * assunto → assunto adjetivo | pronome | nome |artigo nome
 
-<img width="838" height="473" alt="image" src="https://github.com/user-attachments/assets/05069031-2797-4061-a263-9a22d7542b5e" />
+<img width="1104" height="492" alt="image" src="https://github.com/user-attachments/assets/497bccff-04af-4dc6-acd5-9ae4ee162bda" />
+
 oracao y assunto se llaman a sí mismas en la posición más izquierda
 por lo que assunto y oração podrían repetirse las veces que sean.
 
@@ -210,19 +212,26 @@ Si la celda correspondiente a ese par tiene una producción, el parser la aplica
 ### Ejemplo de árboles 
 Le pasamos al parser tokens válidos y contruye su árbol:
 
-"
+"a Maria nao gosta musica"<br>
 <img width="827" height="433" alt="image" src="https://github.com/user-attachments/assets/4ed31f74-eaef-4c5d-9a61-7dee32a5dab3" />
 
-"
+"eles falam portuges"<br>
 <img width="809" height="439" alt="image" src="https://github.com/user-attachments/assets/b3883213-7277-46ec-9323-b712ad3f26df" />
 
-"o menino bom falam ingles mas eles falam portugues"
+"o menino bom estudam ingles mas eles falam portugues" <br>
 <img width="808" height="436" alt="image" src="https://github.com/user-attachments/assets/47698ec1-d35d-412b-b50c-9ced681728fd" />
+
+"o menino mora no Brasil"<br>
+<img width="417" height="240" alt="image" src="https://github.com/user-attachments/assets/dcd9ed76-afde-4232-8cf7-ab915f2c419d" />
 
 
 ## Jerarquía de Chomsky
 La Jerarquía de Chomsky es un sistema de clasificación de gramáticas y lenguajes formales propuesto por Noam Chomsky para describir distintos niveles de complejidad sintáctica. Esta jerarquía se divide en cuatro categorías: gramáticas regulares (Tipo 3), libres de contexto (Tipo 2), sensibles al contexto (Tipo 1) y no restringidas (Tipo 0). Cada nivel posee una mayor capacidad de representación que el anterior, por lo que los lenguajes de una categoría incluyen a los de las categorías inferiores. Esta clasificación resulta fundamental en teoría de la computación porque establece la relación entre los tipos de gramáticas y los modelos computacionales capaces de reconocer los lenguajes que generan, como los autómatas finitos, los autómatas de pila y las máquinas de Turing. Además, proporciona una base teórica para el diseño de compiladores, analizadores sintácticos y sistemas de procesamiento de lenguajes formales.
 <img width="763" height="476" alt="image" src="https://github.com/user-attachments/assets/2080ea25-741a-4dae-9141-e98ebb524f21" />
+
+### PDA
+
+
 ## Justificación formal
 
 El portugués, cuando se restringe al orden canónico **Sujeto-Verbo-Objeto (SVO)**, puede modelarse como una **Gramática Libre de Contexto (GLC)**. En este esquema, cada regla de producción reescribe un símbolo no terminal de forma independiente al entorno en que aparece: la oración se descompone en un sintagma nominal sujeto y un sintagma verbal, el sintagma verbal a su vez produce un verbo seguido opcionalmente de un sintagma nominal objeto, y cada sintagma nominal se expande en un artículo opcional más un sustantivo o pronombre. Ninguna de estas reescrituras necesita "recordar" qué hay fuera de ella para aplicarse correctamente, lo que es exactamente la propiedad definitoria de una GLC según la jerarquía de Chomsky. Fenómenos como la concordancia de género o la conjugación verbal quedan fuera del modelo, pero para el propósito de analizar la **estructura sintáctica superficial** de oraciones declarativas en portugués con orden SVO, las producciones de la forma `S → NP VP`, `VP → V NP` y `NP → Det N` son suficientes y formalmente correctas dentro del formalismo de una gramática libre de contexto.

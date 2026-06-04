@@ -4,35 +4,33 @@ nltk.download('punkt')
 nltk.download('punkt_tab')
 
 grammar = CFG.fromstring("""
-    oração   -> oração_simples oração_prima
-    oração_prima  -> conjunção oração_simples oração_prima
-    oração_prima  ->
+oração   -> oração_simples oração_prima
+oração_prima  -> conjunção oração_simples 
+oração_prima ->
 
-    oração_simples -> assunto verbo objeto
-    oração_simples -> assunto verbo
-    oração_simples -> assunto 'não' verbo objeto
+oração_simples -> assunto oração_int 
+oração_int -> verbo oração_int2 |  'não' verbo objeto
+oração_int2->objeto
 
-    assunto  -> pronome assunto_primo
-    assunto  -> nome assunto_primo
-    assunto  -> artigo nome assunto_primo
+assunto -> pronome | nome | artigo nome | assunto’
+assunto’ ->adjetivo assunto 
+assunto’ -> 
 
-    assunto_primo -> adjetivo assunto_primo
-    assunto_primo ->
+pronome -> 'eles' | 'você'
+nome -> 'Maria' | 'menino'
+artigo -> 'a' | 'o'
+adjetivo -> 'bom' | 'inteligente'
+conjunção -> 'e' | 'mas'
 
-    pronome -> 'eles' | 'você'
-    nome -> 'Maria' | 'menino'
-    artigo -> 'a' | 'o'
-    adjetivo -> 'bom' | 'inteligente'
-    conjunção -> 'e' | 'mas'
+verbo -> 'gosta' | 'falam' | 'mora' | 'estudam' | 'lê'
 
-    verbo -> 'gosta' | 'fala' | 'mora' | 'estudam' | 'lê'
+objeto -> preposição substantivo
+objeto -> artigo substantivo
+objeto -> substantivo
 
-    objeto -> preposição substantivo
-    objeto -> artigo substantivo
-    objeto -> substantivo
+preposição -> 'de' | 'no'
+substantivo -> 'musica' | 'ingles' | 'livro' | 'Brasil' | 'português'
 
-    preposição -> 'de' | 'no'
-    substantivo -> 'musica' | 'ingles' | 'livro' | 'Brasil' | 'português'
 """)
 
 parser = nltk.ChartParser(grammar)

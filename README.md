@@ -194,8 +194,22 @@ y este fue el resultado donde se observa que si tiene un "OK" la prueba fue ejec
 ## Parser LL(1) Princeton 
 
 ### Tabla First Follow
+
+<img width="1106" height="775" alt="image" src="https://github.com/user-attachments/assets/1e766ccf-120b-4d2a-b21d-e72b5d9dbde7" />
+
+
 ### Tabla de análisis LL1
+La tabla LL(1) es una estructura que asocia cada par (no-terminal, terminal) con exactamente una producción de la gramática. El parser la consulta en cada paso para decidir qué regla aplicar según lo que tiene en el tope de la pila y el token que está leyendo en la entrada.<br>
+<img width="1814" height="399" alt="image" src="https://github.com/user-attachments/assets/17bb6599-3c3e-49ea-936f-39b90fdec98e" />
+<img width="1673" height="404" alt="image" src="https://github.com/user-attachments/assets/c2892f66-82f1-4216-9c50-34cf663743b4" />
+Si la celda correspondiente a ese par tiene una producción, el parser la aplica reemplazando el no-terminal por el lado derecho de la regla. Si la celda está vacía, la cadena se rechaza porque no existe ninguna derivación válida para esa combinación. La gramática es LL(1) precisamente cuando ninguna celda contiene más de una producción, lo que garantiza que el parser nunca tiene que elegir entre dos caminos posibles.
+
 ### Ejemplo de árboles 
+<img width="827" height="433" alt="image" src="https://github.com/user-attachments/assets/4ed31f74-eaef-4c5d-9a61-7dee32a5dab3" />
+<img width="806" height="425" alt="image" src="https://github.com/user-attachments/assets/24b9c0a7-6c3d-47eb-bc73-4df05ab607e7" />
+<img width="809" height="439" alt="image" src="https://github.com/user-attachments/assets/b3883213-7277-46ec-9323-b712ad3f26df" />
+<img width="808" height="436" alt="image" src="https://github.com/user-attachments/assets/47698ec1-d35d-412b-b50c-9ced681728fd" />
+
 
 ## Jerarquía de Chomsky
 La Jerarquía de Chomsky es un sistema de clasificación de gramáticas y lenguajes formales propuesto por Noam Chomsky para describir distintos niveles de complejidad sintáctica. Esta jerarquía se divide en cuatro categorías: gramáticas regulares (Tipo 3), libres de contexto (Tipo 2), sensibles al contexto (Tipo 1) y no restringidas (Tipo 0). Cada nivel posee una mayor capacidad de representación que el anterior, por lo que los lenguajes de una categoría incluyen a los de las categorías inferiores. Esta clasificación resulta fundamental en teoría de la computación porque establece la relación entre los tipos de gramáticas y los modelos computacionales capaces de reconocer los lenguajes que generan, como los autómatas finitos, los autómatas de pila y las máquinas de Turing. Además, proporciona una base teórica para el diseño de compiladores, analizadores sintácticos y sistemas de procesamiento de lenguajes formales.

@@ -12,9 +12,9 @@ oração_simples -> assunto oração_int
 oração_int -> verbo oração_int2 |  'não' verbo objeto
 oração_int2->objeto
 
-assunto -> pronome | nome | artigo nome | assunto’
-assunto’ ->adjetivo assunto 
-assunto’ -> 
+assunto -> pronome | nome | artigo nome | assunto_prima
+assunto_prima ->adjetivo assunto 
+assunto_prima -> 
 
 pronome -> 'eles' | 'você'
 nome -> 'Maria' | 'menino'

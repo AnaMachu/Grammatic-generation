@@ -76,16 +76,23 @@ T → T * F | F
 F → id	
 
 Aplicado a nuestra gramática:
-oração → oração conjunção oração
+oração → oração conjunção oração| assunto verbo objeto|assunto verbo|asunto 'não' verbos objeto 
 
 Se agregó un "filtro", ahora no se puede formar una oracao al final sin pasar por oracao simple
 
 oração        -> oração conjunção oração_simples  <br>
 oração        -> oração_simples<br>            
 
-oração_simples -> assunto verbo objeto<br>
-oração_simples -> assunto verbo<br>
-oração_simples -> assunto 'não' verbo objeto<br>
+Aquí sigue habiendo ambigüedad porque hay muchas alternativas que empiezan con assunto y eso puede confunidr al parser.
+
+oração_simples -> assunto verbo objeto| assunto verbo | assunto 'não' verbo objeto
+
+Así que se separan así <br>
+oração_simples -> assunto oração_int
+oração_int -> verbo oração_int2 | 'não' verbo objeto
+oração_int2 -> objeto 
+
+El proceso manual se puede encontrar en [Transformaciones.pdf](Transformaciones.pdf)
 
 Y una vez usando ese cambio de gramática se corre en  [PortuguesAmbiguo.py](PortuguesAmbiguo.py)  y se observa como solo hay un árbol para aquella oración habiendo quitado exitosamente la ambigüedad.
 <img width="1382" height="494" alt="image" src="https://github.com/user-attachments/assets/2a58238e-6b80-44cb-a405-5f2e5b834ad8" />
@@ -102,14 +109,15 @@ Al correr mi gramática en el archivo [PortuguesAmbiguo.py](PortuguesAmbiguo.py)
 
 En mi gramática se identificó en estas dos lineas :
 * oração → oração conjunção oração_simples  (la que le acabamos de quitar la ambigüedad)
+  
   <img width="1383" height="509" alt="image" src="https://github.com/user-attachments/assets/916ad7e1-c9ff-4dda-a8e2-433315d68cd9" />
 oração se llama a sí misma en la posición más izquierda
 
-* assunto → assunto adjetivo
+* assunto → assunto adjetivo | pronome | nome |artigo nome
+
 <img width="838" height="473" alt="image" src="https://github.com/user-attachments/assets/05069031-2797-4061-a263-9a22d7542b5e" />
 assunto se llama a sí misma en la posición más izquierda
-p
-or lo que assunto y oração podrían repetirse las veces que sean.
+por lo que assunto y oração podrían repetirse las veces que sean.
 
 Lo que procede a hacerse para retirar es aplicar el algortimo explicado al incio de esta sección y en mi gramatica se vería así 
 
@@ -147,10 +155,8 @@ A  → β A' <br>
 A' → α A' | ε <br>
 
 Se sutstituye a 
-assunto  → pronome assunto' <br>
-assunto  → nome assunto' <br>
-assunto  → artigo nome assunto' <br>
-assunto' → adjetivo assunto' | ε <br>
+assunto  → pronome | nome | artigo nome | assunto' <br<
+assunto' → adjetivo assunto | ε <br>
 y ahora el árbol se ve así 
 <img width="1071" height="476" alt="image" src="https://github.com/user-attachments/assets/62f88525-4dcf-45ad-9f8d-d595a927425d" />
 

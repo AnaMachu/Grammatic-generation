@@ -53,15 +53,17 @@ al querer generar la oración 'Maria lê livro e Maria mora Brasil e você gosta
 <img width="1116" height="791" alt="image" src="https://github.com/user-attachments/assets/017d939d-3525-43f6-918b-88adc67d35ba" />
 
 Y se ha identificado que el probelma radica aquí:
+<img width="437" height="394" alt="image" src="https://github.com/user-attachments/assets/9dec83c1-4bf1-4ec8-b66e-187fd40cf422" />
+
 <n> oração → oração conjunção oração <n>
 ya que hay dos manera de hacer esta oración: Maria lê livro e Maria mora Brasil e você gosta musica 
 
 * (Maria lê livro e Maria mora Brasil) e você gosta musica
 * Maria lê livro e (Maria mora Brasil e você gosta musica)
 Por lo tanto se determinó que es una gramática ambigua y una vez identificado esto, procedemos a quitarselo.
-En los árboles se puede apreciar que hay asociatividad por ambos lados (derecha e izquierda) debido a que oracao inicia y temrina con oracao.
+En los árboles se puede apreciar que oracao puede crercer por ambos lados (derecha e izquierda) debido a que oracao inicia y temrina con oracao.
 
-Entonces usando asociativad izquierda haré que ya no sea posible formar uno de los dos árboles, quitando así la ambigüedad.
+Entonces haré que del lado derecho pueda crecer de una forma controlada y que se llame diferente para que e dirija unicamente por un laso y así haré que ya no sea posible formar uno de los dos árboles, quitando así la ambigüedad.
 El método es agregar estados intermedios que indiquen un nivel de precedencia, ya que se deben pasar por niveles obligatoriamente entonces no hay rutas alternas.
 como en este ejemplo mostrado en clase:
 Original: 
@@ -80,21 +82,25 @@ oração → oração conjunção oração| assunto verbo objeto|assunto verbo|a
 
 Se agregó un "filtro", ahora no se puede formar una oracao al final sin pasar por oracao simple
 
-oração        -> oração conjunção oração_simples  <br>
+oração        -> oração conjunção oração_simple  <br>
 oração        -> oração_simples<br>            
 
-Aquí sigue habiendo ambigüedad porque hay muchas alternativas que empiezan con assunto y eso puede confunidr al parser.
+A pesar de haber corregido lo anterior, aún se identifica otro problema  sigue causando ambigüedad porque hay muchas alternativas que empiezan con assunto y eso puede confunidr al parser.
 
-oração_simples -> assunto verbo objeto| assunto verbo | assunto 'não' verbo objeto
+oração_simple -> assunto verbo objeto| assunto verbo | assunto 'não' verbo objeto
 
 Así que se separan así <br>
-oração_simples -> assunto oração_int
+oração_simple -> assunto oração_int
 oração_int -> verbo oração_int2 | 'não' verbo objeto
 oração_int2 -> objeto 
 
 El proceso manual se puede encontrar en [Transformaciones.pdf](Transformaciones.pdf)
 
-Y una vez usando ese cambio de gramática se corre en  [PortuguesAmbiguo.py](PortuguesAmbiguo.py)  y se observa como solo hay un árbol para aquella oración habiendo quitado exitosamente la ambigüedad.
+Quedando la gramática así por el momento:
+
+<img width="531" height="740" alt="image" src="https://github.com/user-attachments/assets/13836165-38f6-4cbd-b59b-41d8cb4ef3bd" />
+
+Y una vez usando ese cambio de gramática se corre en y se observa como solo hay un árbol para aquella oración habiendo quitado exitosamente la ambigüedad.
 <img width="1382" height="494" alt="image" src="https://github.com/user-attachments/assets/2a58238e-6b80-44cb-a405-5f2e5b834ad8" />
 
 ### Recursión izquierda
@@ -108,7 +114,7 @@ Al correr mi gramática en el archivo [PortuguesAmbiguo.py](PortuguesAmbiguo.py)
 
 
 En mi gramática se identificó en estas dos lineas :
-* oração → oração conjunção oração_simples  (la que le acabamos de quitar la ambigüedad)
+* oração → oração conjunção oração_simple  (la que le acabamos de quitar la ambigüedad)
   
   <img width="1383" height="509" alt="image" src="https://github.com/user-attachments/assets/916ad7e1-c9ff-4dda-a8e2-433315d68cd9" />
 oração se llama a sí misma en la posición más izquierda
@@ -116,7 +122,7 @@ oração se llama a sí misma en la posición más izquierda
 * assunto → assunto adjetivo | pronome | nome |artigo nome
 
 <img width="838" height="473" alt="image" src="https://github.com/user-attachments/assets/05069031-2797-4061-a263-9a22d7542b5e" />
-assunto se llama a sí misma en la posición más izquierda
+oracao y assunto se llaman a sí mismas en la posición más izquierda
 por lo que assunto y oração podrían repetirse las veces que sean.
 
 Lo que procede a hacerse para retirar es aplicar el algortimo explicado al incio de esta sección y en mi gramatica se vería así 
@@ -124,17 +130,17 @@ Lo que procede a hacerse para retirar es aplicar el algortimo explicado al incio
 oração -> oração conjunção oração_simples   # A → A α <br>
 oração -> oração_simples                    # A → β <br>
 
-Por lo que 
+Por lo que  <br>
 
 A = oração <br>
 α = conjunção oração_simples <br>
 β = oração_simples <br>
 
-Entonces aplicando el algoritmo de  A → Aα | β se reescribe como A → βA' y A' → αA' | ε
-Se obtiene la siguiente forma :
+Entonces aplicando el algoritmo de  A → Aα | β se reescribe como A → βA' y A' → αA' | ε <br>
+Se obtiene la siguiente forma : <br>
 oração  → oração_simples oração' <br>
 oração' → conjunção oração_simples oração' | ε <br>
- y el árbol ahora se ve así 
+y el árbol ahora se ve así 
  <img width="1566" height="508" alt="image" src="https://github.com/user-attachments/assets/93bfed78-6e1f-48b1-8ca6-aacd6312beb6" />
 
  Sin embargo aún hay otro segmento con recursión izquierda.
@@ -155,14 +161,14 @@ A  → β A' <br>
 A' → α A' | ε <br>
 
 Se sutstituye a 
-assunto  → pronome | nome | artigo nome | assunto' <br<
-assunto' → adjetivo assunto | ε <br>
+assunto  → pronome assunto'| nome assunto' | artigo nome assunto' <br>
+assunto' → adjetivo assunto'| ε <br>
 y ahora el árbol se ve así 
 <img width="1071" height="476" alt="image" src="https://github.com/user-attachments/assets/62f88525-4dcf-45ad-9f8d-d595a927425d" />
-
+ 
 ## Modelo 
 El modelo final de la gramática una vez fue removida la ambigüedad, recusrión izquierda y  fue simplificada es esta:
-<img width="324" height="425" alt="image" src="https://github.com/user-attachments/assets/037e964a-0d0a-49fb-91f3-271e7d15f429" />
+<img width="511" height="544" alt="image" src="https://github.com/user-attachments/assets/69089640-e142-4aef-8231-d1536a1dadaf" />
 y también se puede encontrar en el siguiente archivo de texto [GramaticaFinal.txt](GramaticaFinal.txt) 
 
 ## Implementación 

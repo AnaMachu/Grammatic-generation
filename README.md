@@ -25,21 +25,23 @@ Donde el sujeto(assunto) puede ser nombres (nome) y pronombres (pronome),los ver
 ### Gramática
 Según Hopcroft, Motwani y Ullman (2006), una gramática es una descripción formal de un lenguaje que especifica cómo pueden construirse cadenas válidas mediante un conjunto de reglas de producción. Una gramática está compuesta por símbolos terminales, símbolos no terminales, un símbolo inicial y un conjunto de producciones. Los terminales son los símbolos básicos que aparecen en las cadenas finales del lenguaje y no pueden ser reemplazados por otros símbolos, mientras que los no terminales representan categorías o estructuras intermedias que pueden expandirse mediante las reglas de producción. A partir de estas reglas es posible construir un árbol sintáctico, una representación jerárquica que muestra cómo una cadena es generada desde el símbolo inicial hasta llegar a los terminales. En dicho árbol, los nodos internos corresponden a símbolos no terminales y las hojas a símbolos terminales, permitiendo visualizar la estructura sintáctica de una expresión u oración y facilitando su análisis por parte de compiladores y procesadores de lenguaje. 
 
-#### CFG
+La compilación comienza con el análisis léxico, donde el código fuente se lee carácter por carácter y se agrupa en unidades significativas llamadas tokens. Estos tokens pasan a la siguiente fase, el análisis sintáctico, que verifica si están organizados de forma válida según las reglas de la gramática. Si la estructura es correcta, se construye un árbol de derivación que representa jerárquicamente cómo se compone el programa. Para que este proceso funcione de manera determinista y sin retrocesos, la gramática debe cumplir dos condiciones previas: no tener ambigüedad ni recursión izquierda.
+
+#### CFG (Context-Free Grammar)
 Una Gramática Libre de Contexto (Context-Free Grammar, CFG) es un conjunto de reglas de producción utilizado para describir lenguajes en los que cada regla reemplaza un único símbolo no terminal por una cadena de símbolos terminales y no terminales. Formalmente, una CFG está compuesta por un conjunto de terminales, un conjunto de no terminales, un símbolo inicial y un conjunto de producciones. Estas gramáticas son especialmente importantes porque permiten modelar estructuras jerárquicas presentes en lenguajes de programación y lenguajes naturales, siendo además la base teórica de los analizadores sintácticos empleados en compiladores. Sipser (2012)
 
-#### EBNF
+#### EBNF (Extended Backus Naur Form)
 La Forma Extendida de Backus-Naur (EBNF) es una notación que amplía la BNF tradicional mediante la incorporación de operadores que permiten expresar repeticiones, alternativas y elementos opcionales de manera más concisa. Su objetivo es simplificar la especificación de gramáticas al reducir el número de producciones necesarias para describir la sintaxis de un lenguaje. Gracias a estas extensiones, EBNF resulta especialmente útil para documentar lenguajes de programación y sistemas de procesamiento de lenguaje, ya que mejora la legibilidad y el mantenimiento de las gramáticas sin modificar su capacidad descriptiva.
 
 #### Modelo 
-Se busca que este subconjunto de gramática del portugués sea capaz de generar las siguientes oraciones:
-* "Maria gosta musica",
-* "Maria gosta",
-* "Maria lê livro e Maria mora Brasil e você gosta musica",
-* "eles não estudam ingles",
-* "o menino bom lê livro",
 
-Y basado en las reglas del portugues esta ha sido mi producción de modelo 
+Así que basándome a las reglas gramaticales del portugués, esta ha sido mi propuesta para modelar un subconjunto de la gramática total, se pueden crear oraciones simples y compuestas. 
+Algunos ejemplos de las oraciones que se pueden generar son estas:<br>
+    * "Maria gosta musica",
+    * "Maria não lê livro",
+    * "Maria lê livro e Maria mora Brasil e você gosta musica",
+    * "eles não estudam ingles",
+    * "o menino bom inteligente fala português",
 
 <img width="834" height="439" alt="image" src="https://github.com/user-attachments/assets/47c7777f-2c7f-4660-b4bc-b44a17c400c0" />
 
@@ -55,7 +57,7 @@ al querer generar la oración 'Maria lê livro e Maria mora Brasil e você gosta
 Y se ha identificado que el probelma radica aquí:<br>
 <img width="437" height="394" alt="image" src="https://github.com/user-attachments/assets/9dec83c1-4bf1-4ec8-b66e-187fd40cf422" />
 
-<n> oração → oração conjunção oração <n>
+<n> oração → oração conjunção oração <n> <br>
 ya que hay dos manera de hacer esta oración: Maria lê livro e Maria mora Brasil e você gosta musica 
 
 * (Maria lê livro e Maria mora Brasil) e você gosta musica
@@ -87,12 +89,12 @@ oração        -> oração_simples<br>
 
 A pesar de haber corregido lo anterior, aún se identifica otro problema  sigue causando ambigüedad porque hay muchas alternativas que empiezan con assunto y eso puede confunidr al parser.
 
-* oração_simple -> assunto verbo objeto| assunto verbo | assunto 'não' verbo objeto
+* oração_simple -> assunto verbo objeto| assunto verbo | assunto 'não' verbo objeto <br>
 
 Así que se separan así <br>
-oração_simple -> assunto oração_int
-oração_int -> verbo oração_int2 | 'não' verbo objeto
-oração_int2 -> objeto 
+oração_simple -> assunto oração_int <br>
+oração_int -> verbo oração_int2 | 'não' verbo objeto <br>
+oração_int2 -> objeto <br>
 
 El proceso manual se puede encontrar en [Transformaciones.pdf](Transformaciones.pdf)
 
@@ -110,12 +112,12 @@ La recursión izquierda luce de la siguiente manera cuando se representa en un �
 <img width="649" height="424" alt="image" src="https://github.com/user-attachments/assets/3112d5ce-c183-4604-9193-e3f169cc952a" />
 (Imagen extraída del material de clase)
 
-Al correr la gramática sin ambigüedad en el programa encontramos árboles con este aspecto:
-
-
-En mi gramática se identificó en estas dos lineas :
+Al correr la gramática sin ambigüedad en el programa encontramos árboles con este mismo aspecto. <br>
+En mi gramática se identificó en estas dos lineas : <br>
 * oração → oração conjunção oração_simple  (la que le acabamos de quitar la ambigüedad) <br>
 oração se llama a sí misma en la posición más izquierda causando directamente una recursión izquierda.
+
+Y también se identificó en esta otra línea que genera el árbol que se muestra debajo:
 
 * assunto → assunto adjetivo | pronome | nome |artigo nome
 
@@ -169,15 +171,18 @@ El modelo final de la gramática una vez fue removida la ambigüedad, recursión
 y también se puede encontrar en el siguiente archivo de texto [GramaticaFinal.txt](GramaticaFinal.txt) 
 
 ## Implementación 
-Se encuentra en el archivo. Este código funciona de la siguiente manera:
-usa la librería NLTK la cual es (descripción de la libería)
-[Portugues.py](Portugues.py)
+Existen dos archivos, en uno [PortuguesAmbiguo.py](PortuguesAmbiguo.py) parsea la gramática inicial (con recursividad y ambigüedad) y genera los respectivos árboles AST para cada oración propuesta en el mismo código. Determina si es posible de analizarse, es decir, si la oración cumple con las reglas de la gramática y también detecta cuántos árboles se generaron para una oración y determina la existencia de ambigüedad.
+Esto mismo hace [Portugues.py](Portugues.py) pero con la gramática final.
+
+Esta implementación usa la librería NLTK la cual permite analizar la estructura gramatical de oraciones definiendo reglas CFG (como S -> NP VP) y usando parsers como ChartParser. Para el proceso de parsing, NLTK usa Punkt como tokenizador previo, que divide el texto en oraciones y palabras mediante un modelo no supervisado entrenado en patrones de puntuación y abreviaciones, asegurando que la entrada al parser esté correctamente segmentada antes de aplicar las reglas gramaticales.
+
+Al analizar la documentación de la API de NLTK, la librería tiene una complejidad de O(n²) porque el parser llena una tabla con columnas i y j, lo que le da al código una complejidad general de O(n²).
 
 ## Pruebas
 Las purebas automatizadas están en [PruebasPortugues.py](PruebasPortugues.py) y solo se necesita correr el archivo.
 Es importante tener la librería ntlk instalada para correrlas.
 
-Se ingresan oraciones válidas e inválidas y el código determina con ok o con fallido dependiendo de si logró calsificar entre aceptadas y rechazadas.
+Se ingresan oraciones válidas e inválidas y el código determina con ok o con fallido dependiendo de si logró calsificar entre aceptadas y rechazadas correctamente.
 
 Aquí se observan algunos ejemplos de oraciones válidas
 <img width="703" height="474" alt="image" src="https://github.com/user-attachments/assets/a78e7468-8e44-4cef-a1b8-4e5d0767825f" />
@@ -190,11 +195,14 @@ y este fue el resultado donde se observa que si tiene un "OK" la prueba fue ejec
 
 ## Parser y tipos
 
-## Parser LL(1) Princeton 
 
+## Parser LL(1) Princeton 
+Para hacer el parsing de mi gramática usé la herramienta del Parser Princeton la cual (descricpión del parser)
+https://www.cs.princeton.edu/courses/archive/spring20/cos320/LL1/
 
 ### Tabla First Follow
 
+**FIRST** indica los terminales con los que puede comenzar una expresión derivada de un no-terminal, y se construye siguiendo cada producción hasta encontrar un terminal o ε. **FOLLOW** indica qué terminales pueden aparecer inmediatamente después de un no-terminal en cualquier derivación, y se construye buscando ese no-terminal en el lado derecho de las producciones y revisando qué símbolo le sigue. Ambas tablas se usan en parsers predictivos (como LL(1)) para decidir qué regla gramatical aplicar sin necesidad de retroceder, guiando la navegación por el árbol sintáctico.
 <img width="1106" height="775" alt="image" src="https://github.com/user-attachments/assets/1e766ccf-120b-4d2a-b21d-e72b5d9dbde7" />
 
 
@@ -224,10 +232,7 @@ Le pasamos al parser tokens válidos y contruye su árbol:
 La Jerarquía de Chomsky es un sistema de clasificación de gramáticas y lenguajes formales propuesto por Noam Chomsky para describir distintos niveles de complejidad sintáctica. Esta jerarquía se divide en cuatro categorías: gramáticas regulares (Tipo 3), libres de contexto (Tipo 2), sensibles al contexto (Tipo 1) y no restringidas (Tipo 0). Cada nivel posee una mayor capacidad de representación que el anterior, por lo que los lenguajes de una categoría incluyen a los de las categorías inferiores. Esta clasificación resulta fundamental en teoría de la computación porque establece la relación entre los tipos de gramáticas y los modelos computacionales capaces de reconocer los lenguajes que generan, como los autómatas finitos, los autómatas de pila y las máquinas de Turing. Además, proporciona una base teórica para el diseño de compiladores, analizadores sintácticos y sistemas de procesamiento de lenguajes formales.
 <img width="763" height="476" alt="image" src="https://github.com/user-attachments/assets/2080ea25-741a-4dae-9141-e98ebb524f21" />
 
-### PDA
-
-
-## Justificación formal
+## Justificación 
 
 El portugués, cuando se restringe al orden canónico **Sujeto-Verbo-Objeto (SVO)**, puede modelarse como una **Gramática Libre de Contexto (GLC)**. En este esquema, cada regla de producción reescribe un símbolo no terminal de forma independiente al entorno en que aparece: la oración se descompone en un sintagma nominal sujeto y un sintagma verbal, el sintagma verbal a su vez produce un verbo seguido opcionalmente de un sintagma nominal objeto, y cada sintagma nominal se expande en un artículo opcional más un sustantivo o pronombre. Ninguna de estas reescrituras necesita "recordar" qué hay fuera de ella para aplicarse correctamente, lo que es exactamente la propiedad definitoria de una GLC según la jerarquía de Chomsky. Fenómenos como la concordancia de género o la conjugación verbal quedan fuera del modelo, pero para el propósito de analizar la **estructura sintáctica superficial** de oraciones declarativas en portugués con orden SVO, las producciones de la forma `S → NP VP`, `VP → V NP` y `NP → Det N` son suficientes y formalmente correctas dentro del formalismo de una gramática libre de contexto.
 
@@ -239,4 +244,7 @@ Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D. (2007). Compilers: Principles
 Sipser, M. (2012). Introduction to the Theory of Computation (3rd ed.). Cengage Learning.
 Appel, A. W. (2002). Modern Compiler Implementation in Java (2nd ed.). Cambridge University Press.
 Hopcroft, J. E., Motwani, R., & Ullman, J. D. (2006). Introduction to Automata Theory, Languages, and Computation (3rd ed.). Pearson Education.
+NLTK Project. (2024). NLTK API documentation. https://www.nltk.org/api/nltk.html
+https://www.nltk.org/
+Marco, A. (2025) Parsing. https://msmk.university/parsing/
 

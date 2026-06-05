@@ -1,14 +1,7 @@
-    oração -> oração conjunção oração
-    oração -> assunto verbo objeto
-    oração -> assunto verbo
-    oração -> assunto 'não' verbo objeto
+    oração -> oração conjunção oração |assunto verbo objeto |assunto verbo | assunto 'não' verbo objeto
 
 
-    assunto -> assunto adjetivo
-    assunto -> pronome
-    assunto -> nome
-    assunto -> artigo nome
-
+    assunto -> assunto adjetivo | pronome | nome | artigo nome
 
     pronome -> 'eles' | 'você'
     nome -> 'Maria' | 'menino'

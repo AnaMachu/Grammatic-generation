@@ -4,7 +4,7 @@ nltk.download('punkt')
 nltk.download('punkt_tab')
 
 grammar = CFG.fromstring("""
-     oração -> oração conjunção oração
+    oração -> oração conjunção oração
     oração -> assunto verbo objeto
     oração -> assunto verbo
     oração -> assunto 'não' verbo objeto
@@ -39,7 +39,7 @@ parser = nltk.ChartParser(grammar)
 
 sentences = [
     "Maria gosta musica",
-    "Maria gosta",
+    "Maria não lê livro",
     "Maria lê livro e Maria mora Brasil e você gosta musica",
     "eles não estudam ingles",
     "o menino bom inteligente fala português",
@@ -64,4 +64,3 @@ for sentence in sentences:
         for i, tree in enumerate(trees, 1):
             print(f"  --- Árvore {i} ---")
             tree.pretty_print()
-            

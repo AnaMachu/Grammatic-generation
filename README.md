@@ -222,7 +222,7 @@ Le pasamos al parser tokens válidos y contruye su árbol:
 "eles falam portuges"<br>
 <img width="809" height="439" alt="image" src="https://github.com/user-attachments/assets/b3883213-7277-46ec-9323-b712ad3f26df" />
 
-"o menino bom estudam ingles mas eles falam portugues" <br>
+"voce le libro e Maria estudam ingles" <br>
 <img width="808" height="436" alt="image" src="https://github.com/user-attachments/assets/47698ec1-d35d-412b-b50c-9ced681728fd" />
 
 "o menino mora no Brasil"<br>

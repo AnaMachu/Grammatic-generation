@@ -2,42 +2,54 @@ import nltk
 from nltk import CFG
 nltk.download('punkt')
 nltk.download('punkt_tab')
-
+  
 grammar = CFG.fromstring("""
-oração   -> oração_simples oração_prima
-oração_prima  -> conjunção oração_simples 
-oração_prima ->
+    oracao -> oracao_simples oracao_prima
+    oracao -> oracao_simples
 
-oração_simples -> assunto oração_int 
-oração_int -> verbo oração_int2 |  'não' verbo objeto
-oração_int2->objeto
+    oracao_prima -> conjuncao oracao_simples oracao_prima
+    oracao_prima -> conjuncao oracao_simples
 
-assunto -> pronome | nome | artigo nome | assunto_prima
-assunto_prima ->adjetivo assunto 
-assunto_prima -> 
+    oracao_simples -> assunto oracao_int
 
-pronome -> 'eles' | 'você'
-nome -> 'Maria' | 'menino'
-artigo -> 'a' | 'o'
-adjetivo -> 'bom' | 'inteligente'
-conjunção -> 'e' | 'mas'
+    oracao_int -> verbo oracao_int2
+    oracao_int -> 'não' verbo objeto
 
-verbo -> 'gosta' | 'falam' | 'mora' | 'estudam' | 'lê'
+    oracao_int2 -> objeto
 
-objeto -> preposição substantivo
-objeto -> artigo substantivo
-objeto -> substantivo
+    assunto -> pronome assunto_primo
+    assunto -> pronome
+    assunto -> nome assunto_primo
+    assunto -> nome
+    assunto -> artigo nome assunto_primo
+    assunto -> artigo nome
 
-preposição -> 'de' | 'no'
-substantivo -> 'musica' | 'ingles' | 'livro' | 'Brasil' | 'português'
+    assunto_primo -> adjetivo assunto_primo
+    assunto_primo -> adjetivo
 
+    pronome -> 'eles' | 'você'
+    nome -> 'Maria' | 'menino'
+    artigo -> 'a' | 'o'
+    adjetivo -> 'bom' | 'inteligente'
+    conjuncao -> 'e' | 'mas'
+    verbo -> 'gosta' | 'fala' | 'mora' | 'estudam' | 'lê'
+
+    objeto -> preposicao substantivo
+    objeto -> artigo substantivo
+    objeto -> substantivo
+
+    preposicao -> 'de' | 'no'
+    substantivo -> 'musica' | 'ingles' | 'livro' | 'Brasil' | 'português'
 """)
+
+
+
 
 parser = nltk.ChartParser(grammar)
 
 sentences = [
     "Maria gosta musica",
-    "Maria gosta",
+    "Maria não lê livro",
     "Maria lê livro e Maria mora Brasil e você gosta musica",
     "eles não estudam ingles",
     "o menino bom inteligente fala português",
@@ -62,4 +74,3 @@ for sentence in sentences:
         for i, tree in enumerate(trees, 1):
             print(f"  --- Árvore {i} ---")
             tree.pretty_print()
-

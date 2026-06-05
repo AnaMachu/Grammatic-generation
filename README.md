@@ -1,4 +1,4 @@
-# Generación de gramáticas
+# Generación y limpieza de gramática 
 
 ## Descripción
 El idioma protugués es estrucuturalmente muy similar al español. 

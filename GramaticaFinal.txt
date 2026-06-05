@@ -5,7 +5,7 @@
    oração_int-> verbo oração_int2 |  'não'    verbo objeto
    oração_int2-> objeto
 
-   assunto  → pronome assunto’ | nome assunto’ | artigo nome assunto’ <br>
+   assunto  → pronome assunto’ | nome assunto’ | artigo nome assunto’ 
    assunto' → adjetivo assunto'| ε
 
     pronome -> 'eles' | 'você'

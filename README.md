@@ -184,16 +184,17 @@ Es importante tener la librería ntlk instalada para correrlas.
 
 Se ingresan oraciones válidas e inválidas y el código determina con ok o con fallido dependiendo de si logró calsificar entre aceptadas y rechazadas correctamente.
 
-Aquí se observan algunos ejemplos de oraciones válidas
-<img width="703" height="474" alt="image" src="https://github.com/user-attachments/assets/a78e7468-8e44-4cef-a1b8-4e5d0767825f" />
+Aquí se observan algunos ejemplos de oraciones válidas <br>
+<img width="705" height="712" alt="image" src="https://github.com/user-attachments/assets/507b586b-3770-4f92-9620-d69d32153e6f" />
 
-Aquí hay oraciones inválidas
-<img width="723" height="391" alt="image" src="https://github.com/user-attachments/assets/73a3cb46-989a-4c45-abba-a0308a888c19" />
+Aquí hay oraciones inválidas <br>
+<img width="712" height="297" alt="image" src="https://github.com/user-attachments/assets/c70256ff-e7a5-4b69-bf0e-b273c9b425a9" />
 
-y este fue el resultado donde se observa que si tiene un "OK" la prueba fue ejecutada correctamente, tuvo éxito en detemrinar si era válida o inválida
-<img width="766" height="734" alt="image" src="https://github.com/user-attachments/assets/4d6c5af2-3cca-4208-bbc2-af61b8d30751" />
 
-## Parser y tipos
+y este fue el resultado donde se observa que si tiene un "OK" la prueba fue ejecutada correctamente, tuvo éxito en detemrinar si era válida o inválida <br>
+<img width="685" height="583" alt="image" src="https://github.com/user-attachments/assets/27207090-f8a2-47b4-b983-a50d0c5f9df3" />
+
+
 
 
 ## Parser LL(1) Princeton 
@@ -240,11 +241,11 @@ El portugués, cuando se restringe al orden canónico **Sujeto-Verbo-Objeto (SVO
 
 
 ## Referencias
-Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D. (2007). Compilers: Principles, Techniques, and Tools (2nd ed.). Pearson.
-Sipser, M. (2012). Introduction to the Theory of Computation (3rd ed.). Cengage Learning.
-Appel, A. W. (2002). Modern Compiler Implementation in Java (2nd ed.). Cambridge University Press.
-Hopcroft, J. E., Motwani, R., & Ullman, J. D. (2006). Introduction to Automata Theory, Languages, and Computation (3rd ed.). Pearson Education.
-NLTK Project. (2024). NLTK API documentation. https://www.nltk.org/api/nltk.html
-https://www.nltk.org/
-Marco, A. (2025) Parsing. https://msmk.university/parsing/
+Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D. (2007). Compilers: Principles, Techniques, and Tools (2nd ed.). Pearson.<br>
+Sipser, M. (2012). Introduction to the Theory of Computation (3rd ed.). Cengage Learning.<br>
+Appel, A. W. (2002). Modern Compiler Implementation in Java (2nd ed.). Cambridge University Press.<br>
+Hopcroft, J. E., Motwani, R., & Ullman, J. D. (2006). Introduction to Automata Theory, Languages, and Computation (3rd ed.). Pearson Education.<br>
+NLTK Project. (2024). NLTK API documentation. https://www.nltk.org/api/nltk.html<br>
+https://www.nltk.org/<br>
+Marco, A. (2025) Parsing. https://msmk.university/parsing/<br>
 
